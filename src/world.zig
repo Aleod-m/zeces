@@ -60,7 +60,7 @@ test "entities" {
     var world = try World.initAlloc(testing.allocator);
     defer world.deinit();
 
-    // First Spawn 
+    // First Spawn
     const e1 = try world.spawn();
     try testing.expectEqual(
         Entity{
@@ -70,7 +70,7 @@ test "entities" {
         e1,
     );
 
-    // Second Spawn test id. 
+    // Second Spawn test id.
     const e2 = try world.spawn();
     try testing.expectEqual(
         Entity{
@@ -79,11 +79,11 @@ test "entities" {
         },
         e2,
     );
-    // Test liveness. 
+    // Test liveness.
     try world.despawn(e2);
     try testing.expect(!world.isEntityAlive(e2));
 
-    // Test generation. 
+    // Test generation.
     const e3 = try world.spawn();
     try testing.expectEqual(
         Entity{

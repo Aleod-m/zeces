@@ -32,7 +32,6 @@ pub fn Store(max_entities: comptime_int) type {
             self.entities.deinit();
         }
 
-
         pub fn create_entity(self: *Self) !Entity {
             // Allocate an returned id if there is one.
             while (self.available_ids.popOrNull()) |id| {
@@ -53,12 +52,11 @@ pub fn Store(max_entities: comptime_int) type {
                 .generation = 0,
             });
 
-
             return self.entities.items[id];
         }
 
         pub fn release_entity(self: *Self, entity: Entity) !void {
-            if (!self.isEntityAlive(entity)) 
+            if (!self.isEntityAlive(entity))
                 return error.TRIED_TO_RELEASE_DEAD_ENTITY;
             self.entities.items[entity.id].generation = self.entities.items[entity.id].generation + 1;
             try self.available_ids.append(entity.id);
