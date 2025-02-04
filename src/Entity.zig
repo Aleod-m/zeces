@@ -2,6 +2,13 @@ const std = @import("std");
 
 const Entity = @This();
 
+pub fn getMaxEntities(comptime W: type) comptime_int {
+    var max_entities: comptime_int = 1_000_000;
+    if (@hasDecl(W, "MAX_ENTITIES")) {
+        max_entities = W.MAX_ENTITIES;
+    }
+    return max_entities;
+}
 /// DON'T MODIFY.
 id: u32,
 /// DON'T MODIFY.

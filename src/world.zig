@@ -1,14 +1,6 @@
 const std = @import("std");
 pub const Entity = @import("Entity.zig");
 
-fn getMaxEntities(comptime W: type) comptime_int {
-    var max_entities: comptime_int = 1_000_000;
-    if (@hasDecl(W, "MAX_ENTITIES")) {
-        max_entities = W.MAX_ENTITIES;
-    }
-    return max_entities;
-}
-
 /// Defines a World struct.
 ///
 /// Configuration constants:
@@ -17,7 +9,7 @@ fn getMaxEntities(comptime W: type) comptime_int {
 pub fn Define(comptime W: type) type {
     return struct {
         const Self = @This();
-        const EntityStore = Entity.Store(getMaxEntities(W));
+        const EntityStore = Entity.Store(Entity.getMaxEntities(W));
         entity_store: EntityStore,
         entity_alloc: std.heap.ArenaAllocator,
 
